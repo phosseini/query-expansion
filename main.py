@@ -24,4 +24,3 @@ for item in tokens:
     allSynonyms.append(currentSynonyms)
 
 print(allSynonyms)
-
