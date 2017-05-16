@@ -6,7 +6,7 @@ queryList = []
 # we want to keep the list of unique queries
 uniqueQuery = []
 
-workbook = xlrd.open_workbook('data/Mapping.xls')
+workbook = xlrd.open_workbook('data/m.xls')
 sheet_names = workbook.sheet_names()
 xl_sheet = workbook.sheet_by_name(sheet_names[0])
 

@@ -3,11 +3,14 @@ import nltk
 from nltk.corpus import wordnet
 from nltk.corpus import stopwords
 from nltk.stem.porter import *
+from nltk.stem.snowball import SnowballStemmer
 
 
 def run(queryList):
 
-    stemmer = PorterStemmer()
+    # stemmer = PorterStemmer()
+    stemmer = SnowballStemmer("english")
+
     f = open("data/expanded.txt", "w+")
     for query in queryList:
         querySplitted = query.split(",")
@@ -15,11 +18,8 @@ def run(queryList):
         # tokenizing the query
         tokens = nltk.word_tokenize(querySplitted[1])
 
-        # stemming the tokens in the query
-        stemmed_tokens = [stemmer.stem(i) for i in tokens]
-
         # removing stop words in the query
-        filtered_words = [word for word in stemmed_tokens if word not in stopwords.words('english')]
+        filtered_words = [word for word in tokens if word not in stopwords.words('english')]
 
         # pos tagging of tokens
         pos = nltk.pos_tag(filtered_words)
@@ -30,6 +30,10 @@ def run(queryList):
         # iterating through the tokens
         for item in filtered_words:
             synsets = wordnet.synsets(item)
+
+            if not synsets:
+                # stemming the tokens in the query
+                synsets = wordnet.synsets(stemmer.stem(item))
 
             # synonyms of the current token
             currentSynonyms = []
