@@ -4,6 +4,7 @@ from nltk.corpus import wordnet
 from nltk.corpus import stopwords
 from nltk.stem.porter import *
 
+
 def run(queryList):
 
     stemmer = PorterStemmer()
@@ -42,8 +43,17 @@ def run(queryList):
                         if j.name() not in currentSynonyms:  # if we have not
                             currentSynonyms.append(j.name().replace("_", " "))
                 synonyms.append(currentSynonyms)
+            index += 1
 
         f.write(querySplitted[0] + ", " + querySplitted[1] + ", ")
+
+        # removing duplicate lists in the synonyms list
+        tmp = []
+        for elem in synonyms:
+            if elem and elem not in tmp:
+                tmp.append(elem)
+        synonyms = tmp
+
         # now that we have all the synonyms
         for x in itertools.product(*synonyms):
             current = ""
