@@ -27,10 +27,6 @@ for i in range(len(values)):
     for word in words:
         if word == '&':
             word = 'and'
-        if word == 'Mיrida':
-            word = "Me'rida"
-        if word == 'Evil?':
-            word = "Evil"
         x = x + word + '_'
     x=x[:-1]
     file_name = '/Datasets/CE-ACL-14/wiki12_articles/'+x
